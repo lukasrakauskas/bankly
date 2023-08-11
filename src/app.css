@@ -1,0 +1,26 @@
+.app__row {
+  display: flex;
+  margin-top: var(--spacer-medium);
+  gap: var(--spacer-medium);
+}
+
+.logo {
+  height: var(--spacer-medium);
+  will-change: filter;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}

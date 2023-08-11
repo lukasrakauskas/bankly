@@ -1,0 +1,15 @@
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  gap: var(--spacer-medium);
+}
+
+.account {
+  background: var(--background-800);
+  padding: var(--spacer-large);
+  text-align: left;
+}
+
+.total {
+  color: var(--primary-300);
+}
