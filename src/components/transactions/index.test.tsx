@@ -48,6 +48,24 @@ describe("transaction history", () => {
     waitFor(() => expect(screen.getByText("-20.25")).toBeInTheDocument());
   });
 
+  test("show error state when request fails", () => {
+    server.use(
+      rest.get("/api/transactions", (req, res, ctx) =>
+        res(ctx.status(400), ctx.json(transactions))
+      )
+    );
+
+    render(<TransactionHistory />, { wrapper: createWrapper() });
+
+    expect(
+      screen.getByRole("table", {
+        name: "Expenses",
+      })
+    ).toBeInTheDocument();
+
+    waitFor(() => expect(screen.getByTestId("error")).toBeInTheDocument());
+  });
+
   test.skip("changing between the expenses and income tabs should show different transactions", () => {
     render(<TransactionHistory />);
 

@@ -38,9 +38,15 @@ const splitTransactions = (transactions: TransactionType[]) => {
 type Props = React.HTMLAttributes<HTMLTableElement> & {
   transactions: TransactionType[];
   isLoading?: boolean;
+  isError?: boolean;
 };
 
-const TransactionList = ({ transactions, isLoading, ...props }: Props) => {
+const TransactionList = ({
+  transactions,
+  isLoading,
+  isError,
+  ...props
+}: Props) => {
   return (
     <table {...props}>
       <thead>
@@ -51,7 +57,11 @@ const TransactionList = ({ transactions, isLoading, ...props }: Props) => {
         </tr>
       </thead>
       <tbody data-testid="tbody">
-        {isLoading ? (
+        {isError ? (
+          <tr className="error" data-testid="error">
+            <td colSpan={3}>Failed to load your transactions</td>
+          </tr>
+        ) : isLoading ? (
           <>
             <LoadingTransaction />
             <LoadingTransaction />
@@ -68,16 +78,24 @@ const TransactionList = ({ transactions, isLoading, ...props }: Props) => {
 };
 
 export const TransactionHistory = () => {
-  const { data: transactions = { expenses: [], incomes: [] }, isLoading } =
-    useQuery({
-      queryKey: ["transactions"],
-      queryFn: async () => {
-        const response = await fetch("/api/transactions");
-        const data = await response.json();
-        const parsedData = transactionSchema.array().parse(data);
-        return splitTransactions(parsedData);
-      },
-    });
+  const {
+    data: transactions = { expenses: [], incomes: [] },
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["transactions"],
+    queryFn: async () => {
+      const response = await fetch("/api/transactions");
+
+      if (!response.ok) {
+        throw new Error("Failed to load transactions");
+      }
+
+      const data = await response.json();
+      const parsedData = transactionSchema.array().parse(data);
+      return splitTransactions(parsedData);
+    },
+  });
 
   return (
     <>
@@ -92,6 +110,7 @@ export const TransactionHistory = () => {
           <TransactionList
             transactions={transactions.expenses}
             isLoading={isLoading}
+            isError={isError}
             aria-label="Expenses"
           />
         </Tabs.Content>
@@ -99,6 +118,7 @@ export const TransactionHistory = () => {
           <TransactionList
             transactions={transactions.incomes}
             isLoading={isLoading}
+            isError={isError}
             aria-label="Income"
           />
         </Tabs.Content>
