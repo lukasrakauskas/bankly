@@ -24,3 +24,29 @@ export const Transaction = ({ transaction }: Props) => (
     </td>
   </tr>
 );
+
+export const LoadingTransaction = () => (
+  <tr>
+    <td>
+      <div className="transaction-detail">
+        <Avatar name="?" />
+        <div className="transaction-description">
+          <span className="skeleton skeleton-text" />
+          <div className="transaction-category">
+            <span className="skeleton skeleton-text skeleton__medium" />
+          </div>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div>
+        <span className="skeleton skeleton-text" />
+      </div>
+    </td>
+    <td className="transaction-amount">
+      <div className="amount">
+        <span className="skeleton skeleton-text" />
+      </div>
+    </td>
+  </tr>
+);

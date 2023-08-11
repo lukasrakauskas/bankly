@@ -41,6 +41,18 @@ th {
   text-align: left;
 }
 
+table thead .description { 
+  width: 60%;
+}
+
+table thead .date { 
+  width: 20%;
+}
+
+table thead .amount { 
+  width: 20%;
+}
+
 .transaction-detail {
   display: grid;
   grid-template-columns: min-content 1fr;
