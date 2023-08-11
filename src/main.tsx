@@ -15,7 +15,15 @@ async function prepare() {
   return undefined;
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+      refetchIntervalInBackground: false,
+    },
+  },
+});
 
 prepare().then(() =>
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
