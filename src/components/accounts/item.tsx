@@ -1,4 +1,4 @@
-import type { Account } from "../../../types";
+import type { Account } from "../../schemas/account";
 import "./index.css";
 
 type Props = {
