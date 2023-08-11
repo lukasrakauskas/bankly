@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { TransactionHistory } from ".";
 import { createWrapper } from "../../tests/wrapper";
 import { server } from "../../../jest.setup";
@@ -66,8 +66,8 @@ describe("transaction history", () => {
     waitFor(() => expect(screen.getByTestId("error")).toBeInTheDocument());
   });
 
-  test.skip("changing between the expenses and income tabs should show different transactions", () => {
-    render(<TransactionHistory />);
+  test("changing between the expenses and income tabs should show different transactions", () => {
+    render(<TransactionHistory />, { wrapper: createWrapper() });
 
     const expensesTabTrigger = screen.getByRole("tab", {
       name: "Expenses",
@@ -85,12 +85,16 @@ describe("transaction history", () => {
     expect(expensesTable).toBeInTheDocument();
     expect(incomeTable).not.toBeInTheDocument();
 
-    expect(screen.getByText("-20.25")).toBeInTheDocument();
+    waitFor(() => expect(screen.getByText("-20.25")).toBeInTheDocument());
 
-    incomeTabTrigger.click();
+    fireEvent.click(incomeTabTrigger);
 
-    expect(incomeTabTrigger).toHaveAttribute("data-state", "active");
-    expect(expensesTabTrigger).toHaveAttribute("data-state", "inactive");
+    waitFor(() =>
+      expect(incomeTabTrigger).toHaveAttribute("data-state", "active")
+    );
+    waitFor(() =>
+      expect(expensesTabTrigger).toHaveAttribute("data-state", "inactive")
+    );
     expect(screen.queryByText("-20.25")).not.toBeInTheDocument();
   });
 });
