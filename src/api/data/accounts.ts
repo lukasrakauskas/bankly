@@ -1,6 +1,6 @@
-import { Account } from "../../../types";
+import { RawAccount } from "../../schemas/account";
 
-export const accounts: Array<Account> = [
+export const accounts: Array<RawAccount> = [
   {
     account_id: "976b32e2-88b4-4429-bceb-2ce1f9434d65",
     balance: {
