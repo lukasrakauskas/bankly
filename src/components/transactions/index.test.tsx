@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { TransactionHistory } from ".";
+import { createWrapper } from "../../tests/wrapper";
 
 describe("transaction history", () => {
   test("the expenses tab should be shown by default", () => {
-    render(<TransactionHistory />);
+    render(<TransactionHistory />, { wrapper: createWrapper() });
 
     expect(screen.getByText("Transaction History")).toBeInTheDocument();
 
@@ -17,8 +18,8 @@ describe("transaction history", () => {
       name: "Expenses",
     });
 
-    expect(expensesTable).toBeInTheDocument();
-    expect(screen.getByText("-20.25")).toBeInTheDocument();
+    waitFor(() => expect(expensesTable).toBeInTheDocument());
+    waitFor(() => expect(screen.getByText("-20.25")).toBeInTheDocument());
   });
 
   test.skip("changing between the expenses and income tabs should show different transactions", () => {
