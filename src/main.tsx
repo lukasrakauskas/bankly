@@ -6,6 +6,12 @@ import { handlers } from "./api/handlers";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 
+import "@formatjs/intl-datetimeformat/polyfill";
+import "@formatjs/intl-datetimeformat/locale-data/en-GB";
+
+import "@formatjs/intl-numberformat/polyfill";
+import "@formatjs/intl-numberformat/locale-data/en-GB";
+
 const worker = setupWorker(...handlers);
 
 async function prepare() {
