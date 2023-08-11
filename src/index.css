@@ -5,6 +5,7 @@
   --primary-900: #ffffff;
   --primary-300: #88869f;
   --link: #646cff;
+  --error: #fc9898;
 
   /* spacers */
   --spacer-small: 0.5rem;
@@ -119,4 +120,8 @@ button[data-state="active"] {
 
 .skeleton__medium {
   width: 50%;
+}
+
+.error {
+  color: var(--error);
 }
