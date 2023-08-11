@@ -1,10 +1,10 @@
-import { AccountItem } from "./item";
+import { AccountItem, LoadingAccountItem } from "./item";
 import { useQuery } from "@tanstack/react-query";
 import { accountSchema } from "../../schemas/account";
 import "./index.css";
 
 export const Accounts = () => {
-  const { data: accounts = [] } = useQuery({
+  const { data: accounts = [], isLoading } = useQuery({
     queryKey: ["accounts"],
     queryFn: async () => {
       const response = await fetch("/api/accounts");
@@ -12,6 +12,19 @@ export const Accounts = () => {
       return accountSchema.array().parse(data);
     },
   });
+
+  if (isLoading) {
+    return (
+      <>
+        <h1 className="align-left">Your accounts</h1>
+        <div className="accounts">
+          <LoadingAccountItem />
+          <LoadingAccountItem />
+          <LoadingAccountItem />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

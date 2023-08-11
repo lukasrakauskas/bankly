@@ -1,6 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { TransactionHistory } from ".";
 import { createWrapper } from "../../tests/wrapper";
+import { server } from "../../../jest.setup";
+import { rest } from "msw";
+import { transactions } from "../../api/data/transactions";
 
 describe("transaction history", () => {
   test("the expenses tab should be shown by default", () => {
@@ -19,6 +22,29 @@ describe("transaction history", () => {
     });
 
     waitFor(() => expect(expensesTable).toBeInTheDocument());
+    waitFor(() => expect(screen.getByText("-20.25")).toBeInTheDocument());
+  });
+
+  test("show loading state before transactions are shown", () => {
+    server.use(
+      rest.get("/api/transactions", (req, res, ctx) =>
+        res(ctx.delay(1000), ctx.status(200), ctx.json(transactions))
+      )
+    );
+
+    render(<TransactionHistory />, { wrapper: createWrapper() });
+
+    expect(
+      screen.getByRole("table", {
+        name: "Expenses",
+      })
+    ).toBeInTheDocument();
+
+    expect(screen.getByTestId("tbody").childNodes.length).toBe(3);
+
+    waitFor(() =>
+      expect(screen.getByTestId("tbody").childNodes.length).not.toBe(3)
+    );
     waitFor(() => expect(screen.getByText("-20.25")).toBeInTheDocument());
   });
 

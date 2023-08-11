@@ -1,6 +1,6 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import { Transaction as TransactionType } from "../../schemas/transaction";
-import { Transaction } from "./item";
+import { LoadingTransaction, Transaction } from "./item";
 import { useQuery } from "@tanstack/react-query";
 import { transactionSchema } from "../../schemas/transaction";
 import "./index.css";
@@ -37,37 +37,47 @@ const splitTransactions = (transactions: TransactionType[]) => {
 
 type Props = React.HTMLAttributes<HTMLTableElement> & {
   transactions: TransactionType[];
+  isLoading?: boolean;
 };
 
-const TransactionList = ({ transactions, ...props }: Props) => {
+const TransactionList = ({ transactions, isLoading, ...props }: Props) => {
   return (
     <table {...props}>
       <thead>
         <tr>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Amount</th>
+          <th className="description">Description</th>
+          <th className="date">Date</th>
+          <th className="amount">Amount</th>
         </tr>
       </thead>
-      <tbody>
-        {transactions?.map((transaction) => (
-          <Transaction transaction={transaction} key={transaction.id} />
-        ))}
+      <tbody data-testid="tbody">
+        {isLoading ? (
+          <>
+            <LoadingTransaction />
+            <LoadingTransaction />
+            <LoadingTransaction />
+          </>
+        ) : (
+          transactions?.map((transaction) => (
+            <Transaction transaction={transaction} key={transaction.id} />
+          ))
+        )}
       </tbody>
     </table>
   );
 };
 
 export const TransactionHistory = () => {
-  const { data: transactions = { expenses: [], incomes: [] } } = useQuery({
-    queryKey: ["transactions"],
-    queryFn: async () => {
-      const response = await fetch("/api/transactions");
-      const data = await response.json();
-      const parsedData = transactionSchema.array().parse(data);
-      return splitTransactions(parsedData);
-    },
-  });
+  const { data: transactions = { expenses: [], incomes: [] }, isLoading } =
+    useQuery({
+      queryKey: ["transactions"],
+      queryFn: async () => {
+        const response = await fetch("/api/transactions");
+        const data = await response.json();
+        const parsedData = transactionSchema.array().parse(data);
+        return splitTransactions(parsedData);
+      },
+    });
 
   return (
     <>
@@ -81,12 +91,14 @@ export const TransactionHistory = () => {
         <Tabs.Content className="TabsContent" value="expenses">
           <TransactionList
             transactions={transactions.expenses}
+            isLoading={isLoading}
             aria-label="Expenses"
           />
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="income">
           <TransactionList
             transactions={transactions.incomes}
+            isLoading={isLoading}
             aria-label="Income"
           />
         </Tabs.Content>

@@ -91,3 +91,32 @@ button[data-state="active"] {
 .flow > * + * {
   margin-top: var(--spacer-medium);
 }
+
+.skeleton {
+  opacity: 0.2;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: white;
+  }
+  100% {
+    background-color: gray;
+  }
+}
+
+.skeleton-text {
+  display: inline-block;
+  width: 100%;
+  height: var(--font-medium);
+  border-radius: 0.25rem;
+}
+
+.skeleton__small {
+  width: 3ch;
+}
+
+.skeleton__medium {
+  width: 50%;
+}
