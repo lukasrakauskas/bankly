@@ -1,34 +1,47 @@
 import * as Tabs from "@radix-ui/react-tabs";
-import { Transaction as TransactionType } from "../../../types";
-import { transactions } from "../../api/data/transactions";
-import "./index.css";
+import { Transaction as TransactionType } from "../../schemas/transaction";
 import { Transaction } from "./item";
+import { useQuery } from "@tanstack/react-query";
+import { transactionSchema } from "../../schemas/transaction";
+import "./index.css";
 
-const isExpense = (transaction: TransactionType) => transaction.amount.value < 0;
+const isExpense = (transaction: TransactionType) =>
+  transaction.amount.value < 0;
 const isIncome = (transaction: TransactionType) => transaction.amount.value > 0;
 
-const Expenses = () => {
-  return (
-    <table aria-label="Expenses">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        {transactions.filter(isExpense).map((transaction) => (
-          <Transaction transaction={transaction} key={transaction.id} />
-        ))}
-      </tbody>
-    </table>
+const splitTransactions = (transactions: TransactionType[]) => {
+  return transactions.reduce<{
+    expenses: TransactionType[];
+    incomes: TransactionType[];
+  }>(
+    (current, transaction) => {
+      if (isIncome(transaction)) {
+        return {
+          ...current,
+          incomes: [...current.incomes, transaction],
+        };
+      }
+
+      if (isExpense(transaction)) {
+        return {
+          ...current,
+          expenses: [...current.expenses, transaction],
+        };
+      }
+
+      return current;
+    },
+    { expenses: [], incomes: [] }
   );
 };
 
-const Income = () => {
+type Props = React.HTMLAttributes<HTMLTableElement> & {
+  transactions: TransactionType[];
+};
+
+const TransactionList = ({ transactions, ...props }: Props) => {
   return (
-    <table aria-label="Income">
+    <table {...props}>
       <thead>
         <tr>
           <th>Description</th>
@@ -37,7 +50,7 @@ const Income = () => {
         </tr>
       </thead>
       <tbody>
-        {transactions.filter(isIncome).map((transaction) => (
+        {transactions?.map((transaction) => (
           <Transaction transaction={transaction} key={transaction.id} />
         ))}
       </tbody>
@@ -46,6 +59,16 @@ const Income = () => {
 };
 
 export const TransactionHistory = () => {
+  const { data: transactions = { expenses: [], incomes: [] } } = useQuery({
+    queryKey: ["transactions"],
+    queryFn: async () => {
+      const response = await fetch("/api/transactions");
+      const data = await response.json();
+      const parsedData = transactionSchema.array().parse(data);
+      return splitTransactions(parsedData);
+    },
+  });
+
   return (
     <>
       <h1 className="align-left">Transaction History</h1>
@@ -56,10 +79,16 @@ export const TransactionHistory = () => {
         </Tabs.List>
 
         <Tabs.Content className="TabsContent" value="expenses">
-          <Expenses />
+          <TransactionList
+            transactions={transactions.expenses}
+            aria-label="Expenses"
+          />
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="income">
-          <Income />
+          <TransactionList
+            transactions={transactions.incomes}
+            aria-label="Income"
+          />
         </Tabs.Content>
       </Tabs.Root>
     </>
