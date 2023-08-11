@@ -24,34 +24,34 @@ export const Accounts = () => {
 
   if (isError) {
     return (
-      <>
-        <h1 className="align-left">Your accounts</h1>
+      <section className="accounts-section">
+        <h1 className="title align-left">Your accounts</h1>
         <p className="error">Failed to load your accounts</p>
-      </>
+      </section>
     );
   }
 
   if (isLoading) {
     return (
-      <>
-        <h1 className="align-left">Your accounts</h1>
+      <section className="accounts-section">
+        <h1 className="title align-left">Your accounts</h1>
         <div className="accounts">
           <LoadingAccountItem />
           <LoadingAccountItem />
           <LoadingAccountItem />
         </div>
-      </>
+      </section>
     );
   }
 
   return (
-    <>
-      <h1 className="align-left">Your accounts</h1>
+    <section className="accounts-section">
+      <h1 className="title align-left">Your accounts</h1>
       <div className="accounts">
         {accounts.map((account) => (
           <AccountItem account={account} key={account.accountId} />
         ))}
       </div>
-    </>
+    </section>
   );
 };

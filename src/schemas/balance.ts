@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const balanceSchema = z.object({
   amount: z.object({
-    currency: z.string(),
+    currency: z.enum(["GBP", "EUR", "USD"]),
     value: z.number(),
   }),
 });
