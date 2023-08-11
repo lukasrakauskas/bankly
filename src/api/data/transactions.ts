@@ -1,6 +1,6 @@
-import { Transaction } from "../../../types";
+import { RawTransaction } from "../../schemas/transaction";
 
-export const transactions: Array<Transaction> = [
+export const transactions: Array<RawTransaction> = [
   {
     id: "1",
     date: "2022-06-22",

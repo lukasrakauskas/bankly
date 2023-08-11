@@ -13,3 +13,4 @@ export const accountSchema = z
   }));
 
 export type Account = z.infer<typeof accountSchema>;
+export type RawAccount = z.input<typeof accountSchema>;
