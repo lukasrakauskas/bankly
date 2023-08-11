@@ -37,3 +37,7 @@
   font-size: var(--font-large);
   line-height: 125%;
 }
+
+.amount.skeleton {
+  height: 1.875rem;
+}

@@ -28,7 +28,7 @@ export const LoadingAccountItem = () => {
       <div className="total">
         Total <span className="skeleton skeleton-text skeleton__small" />
       </div>
-      <strong className="amount skeleton skeleton-text skeleton__medium"></strong>
+      <strong className="amount skeleton skeleton-text"></strong>
     </div>
   );
 };
