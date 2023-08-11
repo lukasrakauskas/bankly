@@ -1,4 +1,6 @@
-const dateFormatter = new Intl.DateTimeFormat("en-GB");
+const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+  dateStyle: "long",
+});
 
 const currencies = ["GBP", "EUR", "USD"] as const;
 export type Currency = (typeof currencies)[number];
