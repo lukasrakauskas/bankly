@@ -13,3 +13,14 @@ export const AccountItem = ({ account }: Props) => {
     </div>
   );
 };
+
+export const LoadingAccountItem = () => {
+  return (
+    <div className="account">
+      <div className="total">
+        Total <span className="skeleton skeleton-text skeleton__small" />
+      </div>
+      <strong className="skeleton skeleton-text skeleton__medium"></strong>
+    </div>
+  );
+};
