@@ -50,7 +50,7 @@ const TransactionList = ({ transactions, isLoading, ...props }: Props) => {
           <th className="amount">Amount</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody data-testid="tbody">
         {isLoading ? (
           <>
             <LoadingTransaction />
