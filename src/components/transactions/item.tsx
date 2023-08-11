@@ -1,4 +1,4 @@
-import type { Transaction as TransactionType } from "../../../types";
+import type { Transaction as TransactionType } from "../../schemas/transaction";
 import { Avatar } from "./avatar";
 
 type Props = {
