@@ -8,7 +8,8 @@
   --error: #fc9898;
 
   /* spacers */
-  --spacer-small: 0.5rem;
+  --spacer-xsmall: 0.5rem;
+  --spacer-small: 0.75rem;
   --spacer-medium: 1rem;
   --spacer-large: 1.5rem;
   --spacer-xlarge: 2rem;

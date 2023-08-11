@@ -98,15 +98,15 @@ export const TransactionHistory = () => {
   });
 
   return (
-    <>
-      <h1 className="align-left">Transaction History</h1>
-      <Tabs.Root defaultValue="expenses" className="flow">
+    <section className="transaction-section">
+      <h1 className="title align-left">Transaction History</h1>
+      <Tabs.Root defaultValue="expenses" className="tabs">
         <Tabs.List className="tabs__list" aria-label="Filter your transactions">
           <Tabs.Trigger value="expenses">Expenses</Tabs.Trigger>
           <Tabs.Trigger value="income">Income</Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content className="TabsContent" value="expenses">
+        <Tabs.Content className="tabs__content" value="expenses">
           <TransactionList
             transactions={transactions.expenses}
             isLoading={isLoading}
@@ -114,7 +114,7 @@ export const TransactionHistory = () => {
             aria-label="Expenses"
           />
         </Tabs.Content>
-        <Tabs.Content className="TabsContent" value="income">
+        <Tabs.Content className="tabs__content" value="income">
           <TransactionList
             transactions={transactions.incomes}
             isLoading={isLoading}
@@ -123,6 +123,6 @@ export const TransactionHistory = () => {
           />
         </Tabs.Content>
       </Tabs.Root>
-    </>
+    </section>
   );
 };

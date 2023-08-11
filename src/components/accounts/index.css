@@ -1,4 +1,16 @@
+.accounts-section {
+  margin-top: var(--spacer-xxlarge);
+}
+
+.accounts-section .title {
+  margin: 0;
+  font-size: var(--font-xlarge);
+  font-weight: 500;
+  line-height: 125%;
+}
+
 .accounts {
+  margin: var(--spacer-large) 0 0 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
   gap: var(--spacer-large);
@@ -15,19 +27,13 @@
   display: flex;
   align-items: center;
   line-height: 137.5%;
-  gap: var(--spacer-small);
+  gap: var(--spacer-xsmall);
   color: var(--primary-300);
 }
 
 .account .amount {
   display: block;
-  margin-top: var(--spacer-small);
+  margin-top: var(--spacer-xsmall);
   font-size: var(--font-large);
-  line-height: 125%;
-}
-
-.accounts-section .title {
-  font-size: var(--font-xlarge);
-  font-weight: 500;
   line-height: 125%;
 }
