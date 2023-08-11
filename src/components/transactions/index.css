@@ -1,20 +1,36 @@
+.transaction-section {
+  margin-top: var(--spacer-xxlarge);
+}
+
+.transaction-section .title {
+  margin: var(--spacer-large) 0 0 0;
+  font-size: var(--font-xlarge);
+  font-weight: 500;
+  line-height: 125%;
+}
+
 .tabs {
-  margin-top: var(--spacer-medium);
+  margin-top: var(--spacer-large);
 }
 
 .tabs__list {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacer-medium);
+  gap: var(--spacer-small);
+}
+
+.tabs__content {
+  margin-top: var(--spacer-large);
 }
 
 .avatar {
+  box-sizing: border-box;
   user-select: none;
   width: var(--spacer-xxlarge);
   height: var(--spacer-xxlarge);
-  font-size: var(--font-xlarge);
+  font-size: var(--font-large);
   font-weight: 600;
-  border-radius: var(--spacer-smallall);
+  border-radius: var(--radius-medium);
   border: 2px solid var(--primary-300);
   background-color: var(--background-900);
   text-transform: uppercase;
@@ -25,36 +41,58 @@
 
 table {
   background-color: var(--background-800);
-  border-radius: var(--spacer-smallall);
+  border-radius: var(--radius-medium);
   width: 100%;
   text-align: left;
+  border-collapse: collapse;
+}
+
+thead tr {
+  border-bottom: 1px solid var(--background-600);
 }
 
 td {
-  padding: var(--spacer-medium);
+  padding:  var(--spacer-small) var(--spacer-xsmall);
 }
 
 th {
-  color: var(--primary-900);
-  border-bottom: 1px solid var(--primary-300);
-  padding: var(--spacer-medium);
+  color: var(--primary-300);
+  font-weight: 400;
+  padding: var(--spacer-medium) var(--spacer-xsmall);
+  line-height: normal;
   text-align: left;
 }
 
+tbody > tr + tr {
+  margin-top: var(--spacer-xsmall);
+}
+
 table thead .description { 
-  width: 60%;
+  width: 30%;
 }
 
 table thead .date { 
-  width: 20%;
+  width: 45%;
 }
 
-table thead .amount { 
-  width: 20%;
+table thead .amount {
+  width: 25%;
+  text-align: right;
 }
 
 .transaction-detail {
   display: grid;
   grid-template-columns: min-content 1fr;
   gap: var(--spacer-medium);
+}
+
+.transaction-category {
+  color: var(--primary-300);
+  font-size: 0.875rem;
+  line-height: 150%;
+}
+
+.transaction-amount {
+  text-align: right;
+  font-weight: 500;
 }

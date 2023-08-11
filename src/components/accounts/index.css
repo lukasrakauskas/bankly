@@ -1,18 +1,43 @@
+.accounts-section {
+  margin-top: var(--spacer-xxlarge);
+}
+
+.accounts-section .title {
+  margin: 0;
+  font-size: var(--font-xlarge);
+  font-weight: 500;
+  line-height: 125%;
+}
+
 .accounts {
+  margin: var(--spacer-large) 0 0 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-  gap: var(--spacer-medium);
+  gap: var(--spacer-large);
 }
 
 .account {
+  border-radius: var(--radius-small);
   background: var(--background-800);
   padding: var(--spacer-large);
   text-align: left;
 }
 
-.total {
+.account .total {
   display: flex;
   align-items: center;
-  gap: var(--spacer-small);
+  line-height: 137.5%;
+  gap: var(--spacer-xsmall);
   color: var(--primary-300);
+}
+
+.account .amount {
+  display: block;
+  margin-top: var(--spacer-xsmall);
+  font-size: var(--font-large);
+  line-height: 125%;
+}
+
+.amount.skeleton {
+  height: 1.875rem;
 }
