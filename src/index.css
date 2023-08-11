@@ -28,14 +28,10 @@
   color: var(--primary-900);
   background-color: var(--background-900);
   font-synthesis: none;
-  width: 90vw;
-  max-width: 800px;
-  margin: auto;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-size-adjust: 100%;
-  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -51,6 +47,12 @@ a:hover {
 
 body {
   margin: 0;
+}
+
+main {
+  width: 90vw;
+  max-width: 800px;
+  margin: auto;
 }
 
 h1 {
